@@ -7,18 +7,33 @@ packageManager=""
 command -v apt > /dev/null 2>&1 && packageManager=apt || packageManager=yum
 
 # 工具安装（wget、unzip）
+echo -e "============================================"
+echo -e "install wget、unzip"
+echo -e "============================================"
 ${packageManager} -y install wget unzip
 
 # 下载压缩包
+echo -e "============================================"
+echo -e "download clash-yacd.zip"
+echo -e "============================================"
 wget -O clash-yacd.zip https://github.com/hugiot/clash-yacd/releases/download/v1.18.0/clash-yacd.zip
 
 # 解压
+echo -e "============================================"
+echo -e "unzip clash-yacd.zip"
+echo -e "============================================"
 unzip -o clash-yacd.zip -d /opt/clash
 
 # 移除下载包
+echo -e "============================================"
+echo -e "remove clash-yacd.zip"
+echo -e "============================================"
 rm -rf clash-yacd.zip
 
 # 添加可执行权限
+echo -e "============================================"
+echo -e "add execute permission"
+echo -e "============================================"
 chmod +x /opt/clash/bin/*
 
 # 获取系统架构
@@ -36,6 +51,9 @@ case $(uname -m) in
 esac
 
 # 添加服务
+echo -e "============================================"
+echo -e "add service"
+echo -e "============================================"
 touch /usr/lib/systemd/system/clash.service
 cat > /usr/lib/systemd/system/clash.service <<EOF
 [Unit]
@@ -55,5 +73,13 @@ WantedBy=multi-user.target
 EOF
 
 # 重载服务
+echo -e "============================================"
+echo -e "restart service"
+echo -e "============================================"
 systemctl daemon-reload
 systemctl restart clash
+
+echo -e "============================================"
+echo -e "install success"
+echo -e "please visit: http://127.0.0.1:9090/ui"
+echo -e "============================================"

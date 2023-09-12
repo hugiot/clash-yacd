@@ -1,6 +1,6 @@
 # clash-yacd
 
-clash + yacd UI
+clash + yacd UI for linux
 
 ## 快速开始
 
@@ -10,7 +10,7 @@ clash + yacd UI
 sudo sh -c "$(wget https://raw.githubusercontent.com/hugiot/clash-yacd/main/install.sh -O -)"
 ```
 
-2. 替换配置
+2. 修改配置
 
 > 提示：仅替换待替换部分，其他部分请勿修改
 
@@ -44,7 +44,7 @@ sudo systemctl restart clash
 
 通过浏览器访问：http://127.0.0.1:9090/ui
 
-## 问答
+## 高级
 
 * 如何自定义延迟测速 URL
 
