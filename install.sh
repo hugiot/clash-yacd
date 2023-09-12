@@ -83,6 +83,7 @@ echo "+----------------------------------------------------"
 sleep 2s
 systemctl daemon-reload
 systemctl restart clash
+systemctl enable clash
 
 echo "+----------------------------------------------------"
 echo "| install success"
