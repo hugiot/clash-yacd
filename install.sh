@@ -10,10 +10,13 @@ command -v apt > /dev/null 2>&1 && packageManager=apt || packageManager=yum
 ${packageManager} -y install wget unzip
 
 # 下载压缩包
-wget https://github.com/hugiot/clash-yacd/releases/download/v1.18.0/clash-yacd.zip
+wget -O clash-yacd.zip https://github.com/hugiot/clash-yacd/releases/download/v1.18.0/clash-yacd.zip
 
 # 解压
 unzip -o clash-yacd.zip -d /opt/clash
+
+# 移除下载包
+rm -rf clash-yacd.zip
 
 # 添加可执行权限
 chmod +x /opt/clash/bin/*
@@ -53,3 +56,4 @@ EOF
 
 # 重载服务
 systemctl daemon-reload
+systemctl start clash
