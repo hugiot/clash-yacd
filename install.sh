@@ -56,4 +56,4 @@ EOF
 
 # 重载服务
 systemctl daemon-reload
-systemctl start clash
+systemctl restart clash

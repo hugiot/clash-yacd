@@ -4,82 +4,47 @@ clash + yacd UI
 
 ## 快速开始
 
-1. 下载最新压缩包
+1. 执行安装脚本
 
 ```bash
-sudo wget https://github.com/hugiot/clash-yacd/releases/download/v1.18.0/clash-yacd.zip
+sudo sh -c "$(wget https://raw.githubusercontent.com/hugiot/clash-yacd/main/install.sh -O -)"
 ```
 
+2. 替换配置
 
-2. 解压
-
-```bash
-sudo unzip clash-yacd.zip -d /opt/clash
-```
-
-3. 修改配置
-
-> 注意：UI 相关配置
-> * external-controller: 127.0.0.1:9090
-> * secret: admin
-> * external-ui: /opt/clash/web
+> 提示：仅替换待替换部分，其他部分请勿修改
 
 ```bash
 sudo vi /opt/clash/config/config.yaml
 
-# 添加您的配置（需进行订阅地址转换）
+# 内容如下
+port: 7890
+socks-port: 7891
+redir-port: 7892
+allow-lan: true
+mode: rule
+log-level: silent
+external-controller: 127.0.0.1:9090
+secret: ''
+external-ui: /opt/clash/web
+
+# 待替换部分
+proxies:
+proxy-groups:
+rules:
 ```
 
-4. 添加可执行权限
+3. 重启服务
 
 ```bash
-sudo chmod +x /opt/clash/bin/*
+sudo systemctl restart clash
 ```
 
-5. 添加服务
-
-> 提示：根据系统架构选择合适的可执行文件，例如：/opt/clash/bin/clash-linux-amd64
-
-```
-sudo vi /usr/lib/systemd/system/clash.service
-
-# 内容如下：
-[Unit]
-Description=clash server
-After=network.target
-
-[Service]
-Type=simple
-WorkingDirectory=/opt/clash/bin/
-ExecStart=/opt/clash/bin/clash-linux-amd64 -d /opt/clash/config
-Restart=always
-RestartSec=5s
-TimeoutSec=5s
-
-[Install]
-WantedBy=multi-user.target
-```
-
-6. 启动
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl start clash
-sudo systemctl enable clash
-```
-
-7. 访问
+4. 访问
 
 通过浏览器访问：http://127.0.0.1:9090/ui
 
 ## 问答
-
-* yacd 首次访问如何添加 URL
-
-```
-API Base URL: http://127.0.0.1:9090
-Secret(optional): admin
-```
 
 * 如何自定义延迟测速 URL
 
